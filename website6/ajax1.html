@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>请求纯文本数据</title>
+</head>
+<body>
+	<button id="button">请求纯文本</button>
+	<br>
+	<div id="text"></div>
+</body>
+<script>
+	document.getElementById('button').addEventListener('click',loadText);
+
+	//实现loadtext方法
+	function loadText() {
+		// Asynchronouse JavaScript And XML
+		//XMLHttpRequest
+
+		//1.实例化xhr对象
+		var xhr = new XMLHttpRequest();
+		console.log(xhr.readyState);
+		// console.log(xhr);
+		//2.配置对象信息 type url/file asyn(是否异步)
+		xhr.open("GET","sample.txt",true); //true为异步
+		console.log(xhr.readyState);
+
+		//3.执行处理数据的方法
+		// xhr.onload = function(){
+		// 	// console.log(this.responseText);
+		// 	// console.log(xhr.readyState);
+		// 	if(this.status == 200) {
+		// 		console.log(this.responseText);
+		// 	}
+
+		// }
+		xhr.onprogress = function(){
+			console.log("加载页面"+this.readyState);
+		}
+		xhr.onreadystatechange = function() {
+			//console.log(xhr.readyState); //打印234
+
+			// console.log(this.responseText);
+			if(this.readyState ==4 &&this.status == 200) {
+				// console.log(this.responseText);
+				document.getElementById('text').innerHTML= this.responseText;k
+			}
+		}
+		//4.发送请求
+		xhr.send();
+		// 0: 请求未初始化
+		// 1: 服务器连接已建立
+		// 2: 请求已接收
+		// 3: 请求处理中
+		// 4: 请求已完成，且响应已就绪
+
+		//200: ok
+		//400:未找到
+	}
+</script>
+</html>
