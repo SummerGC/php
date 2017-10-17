@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>请求PHP接口</title>
+</head>
+<body>
+	<button id="button">获取数据</button>
+	<div id="process"></div>
+	<h1>GET FORM</h1>
+	<form action="process.php" method="GET" id="getForm">
+		<input type="text" name="name" id="name1">
+		<input type="submit" value="Submit">
+	</form>
+
+
+
+
+
+	<script>
+		document.getElementById('button').addEventListener('click',getData);
+		document.getElementById('getForm').addEventListener('submit',getData2);
+		function getData(){
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET',"process.php",true);
+			xhr.onreadystatechange = function() {
+				if(this.readyState == 4 && this. status ==200) {
+					console.log(this.responseText);
+				}
+			}
+			xhr.send();
+		}
+		function getData2(e){
+			e.preventDefault();
+			var xhr = new XMLHttpRequest();
+			// xhr.open('GET',"process.php?name=Henry",true);
+			var name=document.getElementById('name1').value;
+			xhr.open('GET',"process.php?name="+name,true);
+
+			xhr.onreadystatechange = function() {
+				if(this.readyState == 4 && this. status ==200) {
+					document.getElementById('process').innerHTML=  this.responseText;
+				}
+			}
+			xhr.send();
+		}
+
+		//post请求一定要设置请求头
+		xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
+
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.div1{
+			width: 800px;
+			height: 400px;
+			background-color: lightblue;
+			text-align: center;
+			margin: 0 auto;
+			margin-bottom: 30px;
+		}
+		img{
+			width: 350px;
+			height: 350px;
+		}
+		ul{
+			vertical-align: top;
+			margin-top: 45px;
+			margin-left: 40px;
+			display: inline-block;
+		}
+		.div2{
+			display: inline-block;
+			margin-top: 25px;
+		}
+	</style>
+</head>
+<body>
+	<button id="btn1">获取json数据</button>
+	<div id="xinxi"></div>
+</body>
+<script>
+	document.getElementById('btn1').addEventListener('click',load)
+	function load() {
+		var xhr = new XMLHttpRequest();
+		xhr.open("GET","test.json",true);
+		xhr.onload = function() {
+			if(this.status==200) {
+				var msg=JSON.parse(this.responseText);
+				var xinxi='';
+				for(var i in msg) {
+					xinxi+=`
+					<div class="div1">
+					<div class="div2"><img src="${msg[i].avatar_url}" alt="" /></div>
+					<ul>
+					   <li>login:${msg[i].login}</li>
+					   <li>id:${msg[i].id}</li>
+					   <li>gravatar_id:${msg[i].gravatar_id}</li>
+					   <li><a href="${msg[i].url}">url</a></li>
+					   <li><a href="${msg[i].html_url}">html_url</a></li>
+					   <li><a href="${msg[i].following_url}">following_url</a></li>
+					   <li><a href="${msg[i].gists_url}">gists_url</a></li>
+					   <li><a href="${msg[i].starred_url}">starred_url</a></li>
+					   <li><a href="${msg[i].subscriptions_url}">subscriptions_url</a></li>
+					   <li><a href="${msg[i].organizations_url}">organizations_url</a></li>
+					   <li><a href="${msg[i].repos_url}">repos_url</a></li>
+
+					   <li><a href="${msg[i].events_url}">events_url</a></li>
+
+					   <li><a href="${msg[i].received_events_url}">received_events_url</a></li>
+
+					   <li>type:${msg[i].type}</li>
+
+					</ul>
+
+
+
+
+
+					</div>
+					
+
+
+
+					`;
+				}
+				document.getElementById('xinxi').innerHTML = xinxi;
+			}
+		}
+		xhr.send();
+	}
+</script>
+</html>

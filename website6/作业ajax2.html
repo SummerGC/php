@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<button id="btn1">获得请求的数据</button>
+	<div id="wrap"></div>
+</body>
+<script>
+	document.getElementById('btn1').addEventListener('click',load);
+	function load() {
+		var xhr = new XMLHttpRequest();
+		xhr.open("GET","https://jsonplaceholder.typicode.com/users",true);
+		xhr.onload = function() {
+			if(this.status==200) {
+				var user=JSON.parse(this.responseText);
+				var output='';
+				for(var i = 0; i<user.length;i++){
+					output +=`
+						<tr>
+							<td class="danger">id:${user[i].id}</td>
+							<td class="warning">name:${user[i].name}</td>
+							<td>username:${user[i].username}</td>
+							<td class="warning">email:${user[i].email}</td>
+							<td>address:{
+								<div>street:${user[i].address.street}</div>
+								<div>suite:${user[i].address.suite}</div>
+								<div>city:${user[i].address.city}</div>
+								<div>zipcode:${user[i].address.zipcode}</div>
+								<div>geo:{
+									<div>lat:${user[i].address.geo.lat}</div>
+									<div>lng:${user[i].address.geo.lng}</div>}
+								</div>}
+							</td>
+							<td class="warning">phone:${user[i].phone}</td>
+							<td>website:${user[i].website}</td>
+							<td class="warning">
+								company:{
+								<div>name:${user[i].company.name}</div>
+								<div>catchPhrase:${user[i].company.catchPhrase}</div>
+								<div>bs:${user[i].company.bs}</div>}
+
+							</td>
+							
+
+
+
+						</tr>
+
+
+					`;
+
+				}
+				document.getElementById("wrap").innerHTML = output;
+			}
+		}
+		xhr.send();
+	}
+</script>
+</html>
