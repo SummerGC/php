@@ -1,0 +1,32 @@
+1.创建数据库
+CREATE DATABASE my_database;
+
+2.删除数据库
+DROP DATABASE my_database;
+
+3.创建表
+CREATE TABLE customers(
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255),
+    email VARCHAR(255),
+    address VARCHAR(255),
+    city VARCHAR(255),
+    state VARCHAR(255),
+    PRIMARY KEY(id)
+);
+
+
+4.插入
+INSERT INTO customers(name,email,address,city,state) VALUES(“Ivan”,"Ivan@gmial.com","定泗路","北京","昌平区");
+
+5.删除数据
+DELETE FROM `customers`WHERE `customers`.`id` = 4;
+
+6.修改数据
+UPDATE `customers` SET `state` = '昌平区' WHERE `customers`.`id` = 4;
+
+7.查询数据
+	//所有
+	SELECT * FROM `customers` ;
+	//查询单个
+	SELECT * FROM `customers` WHERE id = 2;
